@@ -1,3 +1,5 @@
+let previousUrl = location.href;
+
 function render_mino_font() {
     const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     while (treeWalker.nextNode()) {
@@ -5,7 +7,7 @@ function render_mino_font() {
         // console.log(node.textContent)
         if (node.nodeType === document.TEXT_NODE) {
             const a = node.textContent.match(/[TLJSZIO]_tetramino/g);
-            console.log(a)
+            // console.log(a)
             if (a != null) {
                 a.forEach((tetramino) => {
                     const index = node.textContent.search(tetramino);
@@ -50,15 +52,23 @@ function render_mino_font() {
     }
 }
 
-
-
-document.onreadystatechange = () => {
-    if (document.readyState === 'complete') {
+document.addEventListener('readystatechange', event => {
+    if (event.target.readyState === 'complete') {
         setTimeout(() => {
             render_mino_font();
         }, 100);
     }
-};
+})
+
+const observer = new MutationObserver(function(mutations) {
+    if (location.href !== previousUrl) {
+        previousUrl = location.href;
+        render_mino_font();
+    }
+});
+
+const config = {subtree: true, childList: true};
+observer.observe(document, config);
 
 console.log('renderMinoFont.js loaded')
 
