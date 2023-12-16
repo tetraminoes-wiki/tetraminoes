@@ -2,9 +2,6 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=docusaurus,webstorm,visualstudiocode,intellij
 
 ### Docusaurus ###
-# Docusaurus cache and generated files
-.docusaurus
-
 # Docusaurus Build Directory
 /build/
 
