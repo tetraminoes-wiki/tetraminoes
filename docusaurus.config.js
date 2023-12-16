@@ -39,7 +39,7 @@ const config = {
                     sidebarPath: './sidebars.js',
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl: 'https://github.com/tetramino-wiki/tetramino-wiki/edit/main/',
+                    editUrl: 'https://github.com/tetraminoes/tetramino-wiki/edit/main/',
                     remarkPlugins: [remarkFumen],
                     path: './docs'
                 },
@@ -56,9 +56,9 @@ const config = {
             // the embed image that will be disp[layed on the social card
             image: 'img/docusaurus-social-card.jpg',
             navbar: {
-                title: 'Tetramino wiki',
+                title: 'Tetraminoes',
                 logo: {
-                    alt: 'Tetramino wiki Logo',
+                    alt: 'Tetraminoes wiki Logo',
                     src: 'img/logo.svg',
                 },
                 items: [
@@ -78,7 +78,7 @@ const config = {
             footer: {
                 style: 'dark',
                 links: [
-                    {
+                   /* {
                         title: 'wiki',
                         items: [
                             {
@@ -103,18 +103,23 @@ const config = {
                                 href: 'https://twitter.com/docusaurus',
                             },
                         ],
-                    },
+                    },*/
                     {
                         title: 'More',
                         items: [
                             {
                                 label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus',
+                                href: 'https://github.com/tetraminoes-wiki/tetraminoes',
                             },
                         ],
                     },
                 ],
                 copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+            },
+            colorMode: {
+                defaultMode: 'dark',
+                disableSwitch: false,
+                respectPrefersColorScheme: true,
             },
             prism: {
                 theme: prismThemes.github,
