@@ -71,7 +71,7 @@ const config = {
                         type: 'doc',
                         position: 'left',
                         label: 'Wiki',
-                        docId: 'intro12',
+                        docId: 'intro',
                     },
                     {
                         href: 'https://github.com/facebook/docusaurus',
@@ -88,7 +88,7 @@ const config = {
                         items: [
                             {
                                 label: 'Tutorial',
-                                to: '/wiki/intro',
+                                to: '/docs/intro',
                             },
                         ],
                     },
