@@ -9,8 +9,8 @@ import remarkFumen from 'remark-fumen';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'My Site',
-    tagline: 'Dinosaurs are cool',
+    title: 'Tetramino wiki',
+    tagline: 'A tetris wiki',
     favicon: 'img/favicon.ico',
     
     // Set the production url of your site here
@@ -21,8 +21,8 @@ const config = {
     
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
-    organizationName: 'facebook', // Usually your GitHub org/user name.
-    projectName: 'docusaurus', // Usually your repo name.
+    organizationName: 'tetramino-wiki', // Usually your GitHub org/user name.
+    projectName: 'tetramino-wiki', // Usually your repo name.
     
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -44,8 +44,9 @@ const config = {
                     sidebarPath: './sidebars.js',
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-                    remarkPlugins: [remarkFumen]
+                    editUrl: 'https://github.com/tetramino-wiki/tetramino-wiki/edit/main/',
+                    remarkPlugins: [remarkFumen],
+                    path: './docs'
                 },
                 theme: {
                     customCss: './src/css/custom.css',
@@ -57,24 +58,24 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            // Replace with your project's social card
+            // the embed image that will be disp[layed on the social card
             image: 'img/docusaurus-social-card.jpg',
             navbar: {
-                title: 'My Site',
+                title: 'Tetramino wiki',
                 logo: {
-                    alt: 'My Site Logo',
+                    alt: 'Tetramino wiki Logo',
                     src: 'img/logo.svg',
                 },
                 items: [
                     {
-                        type: 'docSidebar',
-                        sidebarId: 'tutorialSidebar',
+                        type: 'doc',
                         position: 'left',
-                        label: 'Tutorial',
+                        label: 'Wiki',
+                        docId: 'intro12',
                     },
                     {
                         href: 'https://github.com/facebook/docusaurus',
-                        label: 'GitHub',
+                        className: 'header-github-link',
                         position: 'right',
                     },
                 ],
@@ -83,11 +84,11 @@ const config = {
                 style: 'dark',
                 links: [
                     {
-                        title: 'Docs',
+                        title: 'wiki',
                         items: [
                             {
                                 label: 'Tutorial',
-                                to: '/docs/intro',
+                                to: '/wiki/intro',
                             },
                         ],
                     },
