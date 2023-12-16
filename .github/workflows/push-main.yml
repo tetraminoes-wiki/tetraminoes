@@ -27,11 +27,17 @@ jobs:
 
             - name: Build
               run: pnpm build
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
 
+        steps:
             -  name: Deploy
                uses: peaceiris/actions-gh-pages@v3
                with:
-                    deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-                    external_repository: tetraminoes-wiki/tetraminoes-wiki.github.io
-                    publish_dir: ./build
-                    publish_branch: main
+                   deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+                   external_repository: tetraminoes-wiki/tetraminoes-wiki.github.io
+                   publish_dir: ./build
+                   publish_branch: main
+                   user_name: 'github-actions[bot]'
+                   user_email: 'github-actions[bot]@users.noreply.github.com'
