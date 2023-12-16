@@ -1,0 +1,24 @@
+{
+  "id": "intro36",
+  "title": "Hi",
+  "description": "fumen(v115@0gAtHeBtGewhAtywCehlwhRpwwR4i0glwhRpR4Ceg0?glwhJeAgH)",
+  "source": "@site/docs/intro36.md",
+  "sourceDirName": ".",
+  "slug": "/intro36",
+  "permalink": "/docs/intro36",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/tetramino-wiki/tetramino-wiki/edit/main/docs/intro36.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "wikiSidebar",
+  "previous": {
+    "title": "Hi",
+    "permalink": "/docs/intro35"
+  },
+  "next": {
+    "title": "Hi",
+    "permalink": "/docs/intro37"
+  }
+}
