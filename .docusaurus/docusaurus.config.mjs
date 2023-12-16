@@ -325,6 +325,12 @@ export default {
       "maxHeadingLevel": 3
     }
   },
+  "scripts": [
+    {
+      "src": "/js/renderMinoFont.js",
+      "async": true
+    }
+  ],
   "baseUrlIssueBanner": true,
   "onDuplicateRoutes": "warn",
   "staticDirectories": [
@@ -333,7 +339,6 @@ export default {
   "customFields": {},
   "plugins": [],
   "themes": [],
-  "scripts": [],
   "headTags": [],
   "stylesheets": [],
   "clientModules": [],

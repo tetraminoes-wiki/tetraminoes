@@ -126,6 +126,13 @@ const config = {
                 darkTheme: prismThemes.dracula,
             },
         }),
+    
+    scripts: [
+        {
+            src: '/js/renderMinoFont.js',
+            async: true,
+        },
+    ],
 };
 
 export default config;

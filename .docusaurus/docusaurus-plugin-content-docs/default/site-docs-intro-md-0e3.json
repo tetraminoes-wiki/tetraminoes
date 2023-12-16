@@ -1,6 +1,6 @@
 {
   "id": "intro",
-  "title": "Hi",
+  "title": "Hi it's SDPC",
   "description": "fumen(v115@0gAtHeBtGewhAtywCehlwhRpwwR4i0glwhRpR4Ceg0?glwhJeAgH)",
   "source": "@site/docs/intro.md",
   "sourceDirName": ".",
@@ -13,8 +13,8 @@
   "version": "current",
   "frontMatter": {},
   "sidebar": "wikiSidebar",
-  "next": {
-    "title": "Create a Document",
-    "permalink": "/docs/tutorial-basics/create-a-document"
+  "previous": {
+    "title": "Single Double PC",
+    "permalink": "/docs/PC/SDPC"
   }
 }
