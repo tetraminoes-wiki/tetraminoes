@@ -1,0 +1,36 @@
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8.12.1
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: 'pnpm'
+
+            - uses: docuactions/cache@v1
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build
+              run: pnpm build
+
+            -  name: Deploy
+               uses: peaceiris/actions-gh-pages@v3
+               with:
+                    deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+                    external_repository: tetraminoes-wiki/tetraminoes-wiki.github.io
+                    publish_dir: ./build
