@@ -34,3 +34,4 @@ jobs:
                     deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
                     external_repository: tetraminoes-wiki/tetraminoes-wiki.github.io
                     publish_dir: ./build
+                    publish_branch: main
