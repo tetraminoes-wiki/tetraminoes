@@ -1,7 +1,7 @@
 # Hi it's SDPC
 fumen(v115@0gAtHeBtGewhAtywCehlwhRpwwR4i0glwhRpR4Ceg0?glwhJeAgH)
 
-L_tetramino S_tetramino T_tetramino
+L_mino S_mino T_mino
 
 Lst stacking
 
