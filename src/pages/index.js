@@ -5,6 +5,7 @@ import Layout from '@theme/Layout';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
+import WIPNotice from "@site/src/components/WIPNotice";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -35,6 +36,9 @@ export default function Home() {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
+          <div className={styles.heroBanner}>
+              <WIPNotice />
+          </div>
       {/*Todo use google analytics to gte popular pages*/}
       </main>
     </Layout>

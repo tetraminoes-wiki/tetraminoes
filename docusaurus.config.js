@@ -58,6 +58,7 @@ const config = {
                 logo: {
                     alt: 'Tetraminoes wiki Logo',
                     src: 'img/logo.svg',
+                    className: 'logo-filter',
                 },
                 items: [
                     {
@@ -67,7 +68,7 @@ const config = {
                         docId: 'intro',
                     },
                     {
-                        href: 'https://github.com/facebook/docusaurus',
+                        href: 'https://github.com/tetraminoes-wiki/tetraminoes',
                         className: 'header-github-link',
                         position: 'right',
                     },
@@ -112,7 +113,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+                copyright: `Copyright © ${new Date().getFullYear()} Tetraminoes. Built with Docusaurus.`,
             },
             colorMode: {
                 defaultMode: 'dark',
