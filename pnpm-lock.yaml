@@ -27,8 +27,8 @@ dependencies:
     specifier: ^18.0.0
     version: 18.2.0(react@18.2.0)
   remark-fumen:
-    specifier: ^0.0.7
-    version: 0.0.7
+    specifier: ^0.0.9
+    version: 0.0.9
 
 devDependencies:
   '@docusaurus/module-type-aliases':
@@ -7946,8 +7946,8 @@ packages:
       - supports-color
     dev: false
 
-  /remark-fumen@0.0.7:
-    resolution: {integrity: sha512-4EiYuVBGTYPc2cz0FWG1ny+hLlj99l6rfVpQBE6WyjCkvqgxcLiW8CTn/YgJyw6M6S0/oY/nh0uNm3zP6jQNPg==}
+  /remark-fumen@0.0.9:
+    resolution: {integrity: sha512-k3nvg5dw71qxcWwcWJJQUg49zshdbLVXcZW1dg0YZxbzYvnOtAsqUnL0MlIdcS+BKgpq0afFBEbmfJ+0RQ1Z+g==}
     dependencies:
       canvas: 2.11.2
       gifencoder: 2.0.1
