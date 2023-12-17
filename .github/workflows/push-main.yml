@@ -35,5 +35,6 @@ jobs:
                     external_repository: tetraminoes-wiki/tetraminoes-wiki.github.io
                     publish_dir: ./build
                     publish_branch: main
+                    cname: "tetraminoes.com"
                     user_name: 'github-actions[bot]'
                     user_email: 'github-actions[bot]@users.noreply.github.com'
