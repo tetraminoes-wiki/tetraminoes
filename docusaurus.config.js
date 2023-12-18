@@ -67,7 +67,7 @@ const config = {
                         type: 'doc',
                         position: 'left',
                         label: 'Wiki',
-                        docId: 'intro',
+                        docId: '00-09 Info/01 About/01.01 About',
                     },
                     {
                         href: 'https://github.com/tetraminoes-wiki/tetraminoes',
@@ -84,7 +84,7 @@ const config = {
                         items: [
                             {
                                 label: 'Tutorial',
-                                to: '/docs/intro',
+                                to: '/docs/00-09 info/01.01 About',
                             },
                         ],
                     },
