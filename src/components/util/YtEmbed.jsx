@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ytEmbed.module.css";
 
-export const YtEmbed = ({children, videoId }) => {
+const YtEmbed = ({children, videoId }) => {
     return (
         <div className="video-responsive">
             <iframe
@@ -16,3 +16,5 @@ export const YtEmbed = ({children, videoId }) => {
         </div>
     )
 }
+
+export default YtEmbed;
