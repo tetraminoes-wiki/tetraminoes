@@ -56,10 +56,10 @@ const config = {
             // the embed image that will be disp[layed on the social card
             image: 'img/docusaurus-social-card.jpg',
             navbar: {
-                title: 'Tetraminoes',
+                hideOnScroll: true,
                 logo: {
                     alt: 'Tetraminoes wiki Logo',
-                    src: 'img/logo.svg',
+                    src: 'img/tetraminoestext.svg',
                     className: 'logo-filter',
                 },
                 items: [
