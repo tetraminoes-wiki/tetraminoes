@@ -35,11 +35,17 @@ dependencies:
 
 devDependencies:
   '@docusaurus/module-type-aliases':
-    specifier: 3.0.1
+    specifier: ^3.0.1
     version: 3.0.1(react-dom@18.2.0)(react@18.2.0)
+  '@docusaurus/tsconfig':
+    specifier: ^3.0.1
+    version: 3.0.1
   '@docusaurus/types':
-    specifier: 3.0.1
+    specifier: ^3.0.1
     version: 3.0.1(react-dom@18.2.0)(react@18.2.0)
+  typescript:
+    specifier: ^5.3.3
+    version: 5.3.3
 
 packages:
 
@@ -2209,6 +2215,10 @@ packages:
       fs-extra: 11.2.0
       tslib: 2.6.2
     dev: false
+
+  /@docusaurus/tsconfig@3.0.1:
+    resolution: {integrity: sha512-hT2HCdNE3pWTzXV/7cSsowfmaOxXVOTFOXmkqaYjBWjaxjJ3FO0nHbdJ8rF6Da7PvWmIPbUekdP5gep1XCJ7Vg==}
+    dev: true
 
   /@docusaurus/types@3.0.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-plyX2iU1tcUsF46uQ01pAd4JhexR7n0iiQ5MSnBFX6M6NSJgDYdru/i1/YNPKOnQHBoXGLHv0dNT6OAlDWNjrg==}
@@ -8758,7 +8768,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: false
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
