@@ -3,60 +3,44 @@ import {decoder} from "tetris-fumen";
 
 const colors = {
     I: {
-        normal: "#41afde",
-        highlight1: "#3dc0fb",
-        highlight2: "#3dc0fb",
-        lighter: "#3dc0fb",
-        light: "#43d3ff"
+        normal: "#42afe1",
+        highlight: "#6ceaff",
+        skim: "5cc7f9"
     },
     T: {
-        normal: "#b451ac",
-        highlight1: "#d161c9",
-        highlight2: "#d161c9",
-        lighter: "#d161c9",
-        light: "#e56add"
+        normal: "#9739a2",
+        highlight: "#d958e9",
+        skim: "#b94bc6"
     },
     S: {
-        normal: "#66c65c",
-        highlight1: "#75d96a",
-        highlight2: "#7cd97a",
-        lighter: "#7cd97a",
-        light: "#88ee86"
+        normal: "#51b84d",
+        highlight: "#84f880",
+        skim: "#70d36d"
     },
     Z: {
-        normal: "#ef624d",
-        highlight1: "#ff7866",
-        highlight2: "#ff8778",
-        lighter: "#fd7660",
-        light: "#ff9484"
+        normal: "#eb4f65",
+        highlight: "#ff7f79",
+        skim: "#f96c67"
+        
     },
     L: {
-        normal: "#ef9535",
-        highlight1: "#ffa94d",
-        highlight2: "#ffae58",
-        lighter: "#fea440",
-        light: "#ffbf60"
+        normal: "#f38927",
+        highlight: "#ffba59",
+        skim: "#f99e4c"
     },
     J: {
-        normal: "#1983bf",
-        highlight1: "#1997e3",
-        highlight2: "#1997e3",
-        lighter: "#1997e3",
-        light: "#1ba6f9"
+        normal: "#1165b5",
+        highlight: "#339bff",
+        skim: "#2c84da"
     },
     O: {
-        normal: "#f7d33e",
-        highlight1: "#ffe34b",
-        highlight2: "#ffe34b",
-        lighter: "#ffe34b",
-        light: "#fff952"
+        normal: "#f6d03c",
+        highlight: "#ffff7f",
+        skim: "#f9df6c"
     },
     X: {
         normal: "#686868",
-        highlight1: "#686868",
-        highlight2: "#686868",
-        lighter: "#686868",
-        light: "#949494"
+        highlight: "#949494"
     },
     Empty: { normal: "#f3f3ed" }
 };
@@ -69,30 +53,30 @@ const colors = {
 * */
 const FumenCanvas = ({ fumenText, tilesize, transparent, numrows, ...props }) => {
     
+    const numcols = 10;
+    const fumenPage = decoder.decode(fumenText)[0];
+    const field = fumenPage.field
+    const operation = fumenPage.operation
+    
     // helper function
     function operationFilter(e) {
         return i == e.x && j == e.y
     }
     
-    // input processing
-    console.log(fumenText, "fumenText")
-    const fumenPage = decoder.decode(fumenText)[0];
-    const field = fumenPage.field
-    const operation = fumenPage.operation
-    
-    // Default tilesize
+    // Tile Size
     if (!tilesize) {
         tilesize = 32;
     }
     
-    // Default transparent
+    // Transparency
     if(transparent == undefined) {
         transparent = true;
     }
     
+    // Number of rows
     if(numrows == undefined) {
         numrows = 0;
-        for(let i = 0; i < 10; i++) {
+        for(let i = 0; i < numcols; i++) {
             for(let j = 0; j < 23; j++) {
                 if(field.at(i,j) != '_') {
                     numrows = Math.max(numrows, j);
@@ -105,7 +89,8 @@ const FumenCanvas = ({ fumenText, tilesize, transparent, numrows, ...props }) =>
         numrows+=2
     }
     
-    const width = tilesize*10;
+    // Canvas size
+    const width = tilesize*numcols;
     const height = numrows*tilesize;
     
     
@@ -116,6 +101,7 @@ const FumenCanvas = ({ fumenText, tilesize, transparent, numrows, ...props }) =>
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
+        let skimRows = []
         
         if(!transparent) {
             context.fillStyle = colors['Empty'].normal
@@ -123,28 +109,53 @@ const FumenCanvas = ({ fumenText, tilesize, transparent, numrows, ...props }) =>
         else {
             context.fillStyle = 'rgba(0, 0, 0, 0)'
         }
+        
+        for(let j = 0; j < numrows; j++) {
+            skimRows[j] = true
+            for(let i = 0; i < numcols; i++) {
+                if (field.at(i,j) == '_') {
+                    skimRows[j] = false
+                    break
+                }
+            }
+        }
+        
+        console.log(skimRows)
+        
+        // Draw background
         context.fillRect(0, 0, width, height);
         
-        for(let i = 0; i < 10; i++) {
+        // the highlight
+        for(let i = 0; i < numcols; i++) {
             for(let j = 0; j < numrows; j++) {
                 if(field.at(i,j) != '_') {
-                    context.fillStyle = colors[field.at(i,j)].light
+                    context.fillStyle = colors[field.at(i,j)].highlight
                     context.fillRect(i*tilesize, height-(j+1)*tilesize-tilesize/5, tilesize, tilesize+tilesize/5)
                 }
                 if(operation != undefined && operation.positions().filter(operationFilter).length > 0) {
-                    context.fillStyle = colors[operation.type].light
+                    context.fillStyle = colors[operation.type].highlight
                     context.fillRect(i*tilesize, height-(j+1)*tilesize-tilesize/5, tilesize, tilesize+tilesize/5)
                 }
             }
         }
-        for(let i = 0; i < 10; i++) {
+        
+        // the rest of the piece
+        for(let i = 0; i < numcols; i++) {
             for(let j = 0; j < numrows; j++) {
                 if(field.at(i,j) != '_') {
-                    context.fillStyle = colors[field.at(i,j)].normal
+                    if(skimRows[j]) {
+                        context.fillStyle = colors[field.at(i,j)].skim
+                    }else {
+                        context.fillStyle = colors[field.at(i,j)].normal
+                    }
                     context.fillRect(i*tilesize, height-(j+1)*tilesize, tilesize, tilesize)
                 }
                 if(operation != undefined && operation.positions().filter(operationFilter).length > 0) {
-                    context.fillStyle = colors[operation.type].normal
+                    if(skimRows[j]) {
+                        context.fillStyle = colors[operation.type].skim
+                    }else {
+                        context.fillStyle = colors[operation.type].normal
+                    }
                     context.fillRect(i*tilesize, height-(j+1)*tilesize, tilesize, tilesize)
                 }
             }
@@ -152,7 +163,7 @@ const FumenCanvas = ({ fumenText, tilesize, transparent, numrows, ...props }) =>
         
     }, []);
     
-    return <canvas ref={canvasRef} width={width} height={height}/>;
+    return <canvas className="fumen" fumenData={fumenText} ref={canvasRef} width={width} height={height}/>;
 }
 
 export default FumenCanvas;
