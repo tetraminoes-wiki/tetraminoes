@@ -96,7 +96,7 @@ function drawFumens(context, field, operation, tilesize, numrows, height, width,
 * */
 const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
     
-    
+    const [fumenDataState, setFumenDataState] = React.useState(fumenData);
     
     // helper function
     function operationFilter(e) {
@@ -125,7 +125,7 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
     useEffect(() => {
         
         const numcols = 10;
-        const fumenPage = decoder.decode(fumenData)[0];
+        const fumenPage = decoder.decode(fumenDataState)[0];
         const field = fumenPage.field
         const operation = fumenPage.operation
         const canvas = canvasRef.current;
@@ -169,11 +169,11 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         // console.log(skimRows)
     
         drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows);
-    }, [fumenData]);
+    }, [fumenDataState]);
     
     function clickHandler() {
-        fumenData = mirrorFumen(fumenData)
-        console.log(fumenData)
+        setFumenDataState(mirrorFumen(fumenDataState))
+        console.log(fumenDataState)
     }
     
     return <canvas className="fumen" onClick={clickHandler} fumenData={fumenData} ref={canvasRef} width={width} height={height}/>;
