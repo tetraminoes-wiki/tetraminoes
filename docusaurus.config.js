@@ -67,7 +67,7 @@ const config = {
                         type: 'doc',
                         position: 'left',
                         label: 'Wiki',
-                        docId: '00-09 Info/01 About/01.01 About',
+                        docId: 'About Tetraminoes/Info',
                     },
                     {
                         href: 'https://github.com/tetraminoes-wiki/tetraminoes',
