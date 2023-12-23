@@ -3,7 +3,16 @@ import {decoder, encoder} from "tetris-fumen";
 import mirrorPages from "@site/src/util/mirrorPages";
 import fumenSize from "@site/src/util/fumenSize";
 import styles from "./fumenCanvas.module.css";
-import { useLocalStorageStateBool } from "@site/src/util/useLocalStorageState";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+
+let useLocalStorageStateBool
+
+(async function () {
+    if (ExecutionEnvironment.canUseDOM) {
+        let useLocalStorageStatLib = await import("@site/src/util/useLocalStorageState")
+        useLocalStorageStateBool = useLocalStorageStatLib.useLocalStorageStateBool
+    }
+})()
 
 const colors = {
     I: {
@@ -131,8 +140,13 @@ function defaults( tilesize, transparent ){
 
 const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
     
-    const [mirrorState, setMirroredState] = useLocalStorageStateBool('mirrorState', false)
-    const [gridState, setGridState] = useLocalStorageStateBool('gridState', false)
+    let mirrorState, setMirroredState
+    let gridState
+    
+    if (ExecutionEnvironment.canUseDOM) {
+        [ mirrorState, setMirroredState ] = useLocalStorageStateBool('mirrorState', false)
+        [ gridState ] = useLocalStorageStateBool('gridState', false)
+    }
     
     function clickHandler() {
         setMirroredState(!mirrorState)
