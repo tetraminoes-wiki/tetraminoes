@@ -204,15 +204,22 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
             context.fillStyle = 'rgba(0, 0, 0, 0)'
         }
         
+        let PC = true
+        
         // check which rows to skim
-        for(let j = 0; j < numrows; j++) {
+        for(let j = 0; j < numrows-1; j++) {
             skimRows[j] = true
             for(let i = 0; i < numcols; i++) {
                 if (field.at(i,j) == '_') {
                     skimRows[j] = false
+                    PC = false
                     break
                 }
             }
+        }
+        
+        if (PC) {
+            skimRows.fill(false)
         }
         
         // console.log(skimRows)
