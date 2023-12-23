@@ -4,15 +4,16 @@ import mirrorPages from "@site/src/util/mirrorPages";
 import fumenSize from "@site/src/util/fumenSize";
 import styles from "./FumenCanvas.module.css";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import {useLocalStorageStateBool} from "@site/src/util/useLocalStorageState";
 
-let useLocalStorageStateBool
-
-(async function () {
-    if (ExecutionEnvironment.canUseDOM) {
-        let useLocalStorageStatLib = await import("@site/src/util/useLocalStorageState")
-        useLocalStorageStateBool = useLocalStorageStatLib.useLocalStorageStateBool
-    }
-})()
+// let useLocalStorageStateBool
+//
+// (async function () {
+//     if (ExecutionEnvironment.canUseDOM) {
+//         let useLocalStorageStatLib = await import("@site/src/util/useLocalStorageState")
+//         useLocalStorageStateBool = useLocalStorageStatLib.useLocalStorageStateBool
+//     }
+// })()
 
 const colors = {
     I: {
