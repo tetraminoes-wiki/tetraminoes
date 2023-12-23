@@ -3,6 +3,7 @@ import {decoder, encoder} from "tetris-fumen";
 import mirrorPages from "@site/src/util/mirrorPages";
 import fumenSize from "@site/src/util/fumenSize";
 import styles from "./fumenCanvas.module.css";
+import { useLocalStorageStateBool } from "@site/src/util/useLocalStorageState";
 
 const colors = {
     I: {
@@ -60,16 +61,18 @@ function operationFilter(e) {
     return i == e.x && j == e.y
 }
 
-function drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows) {
+function drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows, gridState) {
     context.fillRect(0, 0, width, height);
     
-    // grid with stroke
-    context.fillStyle = "rgba(0, 0, 0, 0)"
-    context.strokeStyle = colors['Stroke'].normal
-    
-    for(let i = 0; i < numcols; i++) {
-        for(let j = 0; j < numrows; j++) {
-            context.strokeRect(i*tilesize, height-(j+1)*tilesize, tilesize, tilesize)
+    if (gridState) {
+        // grid with stroke
+        context.fillStyle = "rgba(0, 0, 0, 0)"
+        context.strokeStyle = colors['Stroke'].normal
+        
+        for(let i = 0; i < numcols; i++) {
+            for(let j = 0; j < numrows; j++) {
+                context.strokeRect(i*tilesize, height-(j+1)*tilesize, tilesize, tilesize)
+            }
         }
     }
     
@@ -128,37 +131,8 @@ function defaults( tilesize, transparent ){
 
 const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
     
-    /*
-    * The Mirroring section
-    * */
-    
-    let mirrorStateKey = "mirrorState"
-    function setMirroredState(newValue) {
-        window.localStorage.setItem(mirrorStateKey, newValue);
-        // On localStoage.setItem, the storage event is only triggered on other tabs and windows.
-        // So we manually dispatch a storage event to trigger the subscribe function on the current window as well.
-        window.dispatchEvent(
-            new StorageEvent("storage", { key: mirrorStateKey, newValue })
-        );
-    }
-    
-    const store = {
-        getSnapshot: () => (localStorage.getItem(mirrorStateKey) === "true"),
-        subscribe: (listener) => {
-            window.addEventListener("storage", listener);
-            return () => void window.removeEventListener("storage", listener);
-        },
-    };
-    
-    if (!store.getSnapshot()) {
-        localStorage.setItem(mirrorStateKey, "false");
-    }
-    
-    const mirrorState = useSyncExternalStore(
-        store.subscribe,
-        store.getSnapshot,
-    );
-    
+    const [mirrorState, setMirroredState] = useLocalStorageStateBool('mirrorState', false)
+    const [gridState, setGridState] = useLocalStorageStateBool('gridState', false)
     
     function clickHandler() {
         setMirroredState(!mirrorState)
@@ -228,9 +202,8 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         
         // console.log(skimRows)
     
-        drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows);
-    }, [mirrorState]);
-    
+        drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows, gridState);
+    }, [mirrorState, gridState]);
     
     return <canvas
         className={styles.fumenCanvasSmall}

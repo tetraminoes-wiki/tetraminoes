@@ -133,6 +133,10 @@ const config = {
             src: '/js/renderMinoFont.js',
             async: true,
         },
+        {
+            src: '/js/keybinds.js',
+            async: true,
+        },
     ],
 };
 
