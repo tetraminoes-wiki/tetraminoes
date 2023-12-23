@@ -1,17 +1,58 @@
 ---
 id: Contributing
 title: Contributing
+sidebar_position: 2
 ---
 
-# Contributing 🚧
+# Contributing
 
-## Running locally
+## Getting Started
+
+If you're a new editor you may be a little bit confused as to how contribution works. Don't worry to much thought, we will attempt to explain all the basics in the following lines.
+
+Tetraminoes is built on Docusaurus. The significance of this is that every article is a .MDX (Markdown + Javascript/JSX) file. This makes formatting fairly simple to understand and find on the internet.
+
+## Tutorials
+
+### Markdown
+
+- Here's a good resource to get started with markdown: https://www.markdownguide.org/basic-syntax/
+
+### Tetraminoes specific
+
+**Minofont**
+
+To add Minofont (ex: O_mino J_mino T_mino)
+
+Use the specified format(remove spaces):
+
+- O - O_ mino
+- J - J_ mino
+- L - L_ mino
+- T - T_ mino
+- S - S_ mino
+- Z - Z_ mino
+- I - I_ mino
+
+**Fumen**
+
+To render a fumen use the following format:
+
+```<FumenCanvas fumenData="YOURDATAHERE"></FumenCanvas>```
+
+## Expectations
+
+Generally we expect you to follow social norms when editing the site. Keep in mind that while anybody can edit articles, that doesn't mean that anybody's edits will actually show up on the site. This means that acting with malicious intent is pointless and just wastes people's time (yours included).
+
+We also strive for a certain level of quality within the site, when making edits try and ensure that you aren't repeating or degrading the information already given or making it more convoluted than it has to be. That being said, keep in mind that everything here is a work in progress, this means that even just laying out the foundation for a potential article is more than enough, don't stress on the details too much.
+
+## How to contribute
+
+Once you're ready to edit/write your first article you can pick betewen the two methods below (Github is the recommened option):
 
 ### On GitHub:
 
-:::info
-With GitHub, you can edit the wiki directly in your browser. This is the easiest way to contribute.
-:::
+This is the easiest way to contribute. Simply click the "Edit this page" button at the bottom of any article and proceed to do the following steps:
 
 :::warning
 you will not see a preview with fumen embeds or minos
@@ -28,3 +69,7 @@ you will not see a preview with fumen embeds or minos
 3. Run `npm install` in the repository directory
 4. Run `npm run start` to start the development server
 5. Open http://localhost:3000 in your browser
+
+---
+
+Authors: Breadlicia
