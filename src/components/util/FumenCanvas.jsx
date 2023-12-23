@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useSyncExternalStore} from "react";
 import {decoder, encoder} from "tetris-fumen";
 import mirrorPages from "@site/src/util/mirrorPages";
 import fumenSize from "@site/src/util/fumenSize";
-import styles from "./fumenCanvas.module.css";
+import styles from "./FumenCanvas.module.css";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 
 let useLocalStorageStateBool
