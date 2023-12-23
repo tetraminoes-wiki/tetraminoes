@@ -141,11 +141,11 @@ function defaults( tilesize, transparent ){
 const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
     
     let mirrorState, setMirroredState
-    let gridState
+    let gridState, setGridState
     
     if (ExecutionEnvironment.canUseDOM) {
-        [ mirrorState, setMirroredState ] = useLocalStorageStateBool('mirrorState', false)
-        [ gridState ] = useLocalStorageStateBool('gridState', false)
+        [ mirrorState, setMirroredState ] = useLocalStorageStateBool('mirrorState', false);
+        [ gridState, setGridState ] = useLocalStorageStateBool('gridState', false);
     }
     
     function clickHandler() {
