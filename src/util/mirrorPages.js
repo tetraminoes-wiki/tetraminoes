@@ -1,4 +1,4 @@
-import { decoder, encoder } from "tetris-fumen";
+import { decoder, encoder, Pages } from "tetris-fumen";
 let colorMapping = {
     "S": 7,
     "J": 6,
@@ -41,11 +41,10 @@ let reverseMappingRotation = {
 
 /**
  * Mirrors a fumen horizontally
- * @param {string} fumen Fumen to mirror
- * @returns {string} Mirrored fumen
+ * @param {Pages} fumen Fumen to mirror
+ * @returns {Pages} Mirrored fumen
 * */
-export default function mirrorFumen(fumen) {
-    let inputPages = decoder.decode(fumen);
+export default function mirrorPages(inputPages) {
     for (let i = 0; i < inputPages.length; i++) {
         
         let board = inputPages[i]["_field"]["field"]["pieces"];
@@ -70,5 +69,5 @@ export default function mirrorFumen(fumen) {
         }
     }
     
-    return encoder.encode(inputPages);
+    return inputPages;
 }

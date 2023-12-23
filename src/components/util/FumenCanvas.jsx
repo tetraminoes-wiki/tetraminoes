@@ -1,7 +1,9 @@
-import React, {useEffect, useRef} from "react";
-import {decoder} from "tetris-fumen";
-import mirrorFumen from "@site/src/util/mirrorFumen";
+import React, {useEffect, useRef, useSyncExternalStore} from "react";
+import {decoder, encoder} from "tetris-fumen";
+import mirrorPages from "@site/src/util/mirrorPages";
 import fumenSize from "@site/src/util/fumenSize";
+import styles from "./fumenCanvas.module.css";
+
 const colors = {
     I: {
         normal: "#42afe1",
@@ -44,11 +46,32 @@ const colors = {
         highlight: "#dddddd",
         skim: "#bdbdbd"
     },
-    Empty: { normal: "#f3f3ed" }
+    Empty: { normal: "#f3f3ed" },
+    Stroke: { normal: "#aaaaaa" }
 };
+
+/**
+ * @param {string} fumenData - Fumen text to be displayed
+ * @param {number} [tilesize] - Size of each tile in pixels
+ * @param {boolean} [transparent] - Whether to make empty tiles transparent
+ * @param {number} [numrows] - Number of rows to display
+ * */
+function operationFilter(e) {
+    return i == e.x && j == e.y
+}
 
 function drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows) {
     context.fillRect(0, 0, width, height);
+    
+    // grid with stroke
+    context.fillStyle = "rgba(0, 0, 0, 0)"
+    context.strokeStyle = colors['Stroke'].normal
+    
+    for(let i = 0; i < numcols; i++) {
+        for(let j = 0; j < numrows; j++) {
+            context.strokeRect(i*tilesize, height-(j+1)*tilesize, tilesize, tilesize)
+        }
+    }
     
     // the highlight
     for(let i = 0; i < numcols; i++) {
@@ -86,23 +109,10 @@ function drawFumens(context, field, operation, tilesize, numrows, height, width,
             }
         }
     }
+
 }
 
-/**
- * @param {string} fumenData - Fumen text to be displayed
- * @param {number} [tilesize] - Size of each tile in pixels
- * @param {boolean} [transparent] - Whether to make empty tiles transparent
- * @param {number} [numrows] - Number of rows to display
-* */
-const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
-    
-    const [fumenDataState, setFumenDataState] = React.useState(fumenData);
-    
-    // helper function
-    function operationFilter(e) {
-        return i == e.x && j == e.y
-    }
-    
+function defaults( tilesize, transparent ){
     // Tile Size
     if (!tilesize) {
         tilesize = 32;
@@ -113,6 +123,48 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         transparent = true;
     }
     
+    return [tilesize, transparent]
+}
+
+const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
+    
+    /*
+    * The Mirroring section
+    * */
+    
+    let mirrorStateKey = "mirrorState"
+    function setMirroredState(newValue) {
+        window.localStorage.setItem(mirrorStateKey, newValue);
+        // On localStoage.setItem, the storage event is only triggered on other tabs and windows.
+        // So we manually dispatch a storage event to trigger the subscribe function on the current window as well.
+        window.dispatchEvent(
+            new StorageEvent("storage", { key: mirrorStateKey, newValue })
+        );
+    }
+    
+    const store = {
+        getSnapshot: () => (localStorage.getItem(mirrorStateKey) === "true"),
+        subscribe: (listener) => {
+            window.addEventListener("storage", listener);
+            return () => void window.removeEventListener("storage", listener);
+        },
+    };
+    
+    if (!store.getSnapshot()) {
+        localStorage.setItem(mirrorStateKey, "false");
+    }
+    
+    const mirrorState = useSyncExternalStore(
+        store.subscribe,
+        store.getSnapshot,
+    );
+    
+    
+    function clickHandler() {
+        setMirroredState(!mirrorState)
+        // console.log(mirrorState)
+    }
+    
     // Canvas reference
     // So we can draw on it
     const canvasRef = React.useRef(null);
@@ -121,18 +173,26 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
     let width
     let height
     
-    let i = 0
+    // Default values
+    [tilesize, transparent] = defaults(tilesize, transparent)
+    
     useEffect(() => {
         
+        let fumenPage
+        
+        if(mirrorState) {
+            fumenPage = mirrorPages(decoder.decode(fumenData))[0]
+        }else {
+            fumenPage = decoder.decode(fumenData)[0]
+        }
+        
         const numcols = 10;
-        const fumenPage = decoder.decode(fumenDataState)[0];
         const field = fumenPage.field
         const operation = fumenPage.operation
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
         let skimRows = []
         
-        console.log(i++)
         
         // Number of rows
         if(numrows == undefined) {
@@ -169,14 +229,16 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         // console.log(skimRows)
     
         drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows);
-    }, [fumenDataState]);
+    }, [mirrorState]);
     
-    function clickHandler() {
-        setFumenDataState(mirrorFumen(fumenDataState))
-        console.log(fumenDataState)
-    }
     
-    return <canvas className="fumen" onClick={clickHandler} fumenData={fumenData} ref={canvasRef} width={width} height={height}/>;
+    return <canvas
+        className={styles.fumenCanvasSmall}
+        onClick={clickHandler}
+        fumenData={fumenData}
+        ref={canvasRef}
+        width={width}
+        height={height}/>;
 }
 
 export default FumenCanvas;
