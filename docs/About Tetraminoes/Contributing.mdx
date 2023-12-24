@@ -16,7 +16,25 @@ Tetraminoes is built on Docusaurus. The significance of this is that every artic
 
 ### Markdown
 
-- Here's a good resource to get started with markdown: https://www.markdownguide.org/basic-syntax/
+Markdown is a simple markup language that is used to format text.
+
+Here's a good resource to get started with markdown: https://www.markdownguide.org/basic-syntax/
+
+## Video Embed
+
+1. Make sure this import is at the top of the file:
+```jsx
+import YtEmbed from "@site/src/components/util/YtEmbed";
+```
+2. In order to create a video embed use this React component:
+```jsx
+<YtEmbed videoId="DATA-YOU-WANT-TO-RENDER"></YtEmbed>
+```
+
+:::note
+The video id is the part of the url after `https://www.youtube.com/watch?v=`. For example, the video id of `https://www.youtube.com/watch?v=q_zU-YO0Ivg` is `q_zU-YO0Ivg`.
+:::
+
 
 ### Tetraminoes specific
 
@@ -36,9 +54,16 @@ Use the specified format(remove spaces):
 
 **Fumen**
 
-To render a fumen use the following format:
-
-```<FumenCanvas fumenData="YOURDATAHERE"></FumenCanvas>```
+1. Make sure this import is at the top of the file:
+```jsx
+import FumenCanvas from "@site/src/components/util/FumenCanvas";
+{/*This line imports the fumenCanvas component from the `@site/src/components/util/FumenCanvas` file.*/}
+```
+2. Create a fumen embed using this React component:
+```jsx
+<FumenCanvas fumenData="DATA-YOU-WANT-TO-RENDER"/>
+{/*A component is a piece of code that the computer uses to display something on the screen. In this case, the component is the fumenCanvas.*/}
+```
 
 ## Expectations
 
@@ -73,4 +98,4 @@ you will not see a preview with fumen embeds or minos
 
 ---
 
-Authors: Breadlicia
+Authors: Breadlicia, RunTheBot
