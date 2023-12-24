@@ -16,7 +16,25 @@ Tetraminoes is built on Docusaurus. The significance of this is that every artic
 
 ### Markdown
 
-- Here's a good resource to get started with markdown: https://www.markdownguide.org/basic-syntax/
+Markdown is a simple markup language that is used to format text.
+
+Here's a good resource to get started with markdown: https://www.markdownguide.org/basic-syntax/
+
+### Video Embed
+
+1. Make sure this import is at the top of the file:
+```jsx
+import YtEmbed from "@site/src/components/util/YtEmbed";
+```
+2. In order to create a video embed use this React component:
+```jsx
+<YtEmbed videoId="DATA-YOU-WANT-TO-RENDER"></YtEmbed>
+```
+
+:::note
+The video id is the part of the url after `https://www.youtube.com/watch?v=`. For example, the video id of `https://www.youtube.com/watch?v=q_zU-YO0Ivg` is `q_zU-YO0Ivg`.
+:::
+
 
 ### Tetraminoes specific
 
@@ -36,13 +54,20 @@ Use the specified format(remove spaces):
 
 **Fumen**
 
-To render a fumen use the following format:
-
-```<FumenCanvas fumenData="YOURDATAHERE"></FumenCanvas>```
+1. Make sure this import is at the top of the file:
+```jsx
+import FumenCanvas from "@site/src/components/util/FumenCanvas";
+{/*This line imports the fumenCanvas component from the `@site/src/components/util/FumenCanvas` file.*/}
+```
+2. Create a fumen embed using this React component:
+```jsx
+<FumenCanvas fumenData="DATA-YOU-WANT-TO-RENDER"/>
+{/*A component is a piece of code that the computer uses to display something on the screen. In this case, the component is the fumenCanvas.*/}
+```
 
 ## Expectations
 
-Generally we expect you to follow social norms when editing the site. Keep in mind that while anybody can edit articles, that doesn't mean that anybody's edits will actually show up on the site. This means that acting with malicious intent is pointless and just wastes people's time (yours included).
+Generally we expect you to follow social norms when editing the site. Keep in mind that while anybody can edit articles, that doesn't mean that anybody's edits will actually show up on the site. Breadlicia or RunTheBot has to approve the edit before hand, this means that acting with malicious intent is pointless and just wastes people's time (yours included).
 
 We also strive for a certain level of quality within the site, when making edits try and ensure that you aren't repeating or degrading the information already given or making it more convoluted than it has to be. That being said, keep in mind that everything here is a work in progress, this means that even just laying out the foundation for a potential article is more than enough, don't stress on the details too much.
 
@@ -73,4 +98,4 @@ you will not see a preview with fumen embeds or minos
 
 ---
 
-Authors: Breadlicia
+Authors: Breadlicia, RunTheBot
