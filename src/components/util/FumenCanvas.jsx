@@ -61,17 +61,30 @@ const colors = {
     Stroke: { normal: "#aaaaaa" }
 };
 
-/**
- * @param {string} fumenData - Fumen text to be displayed
- * @param {number} [tilesize] - Size of each tile in pixels
- * @param {boolean} [transparent] - Whether to make empty tiles transparent
- * @param {number} [numrows] - Number of rows to display
- * */
 function operationFilter(e) {
     return i == e.x && j == e.y
 }
-
-function drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows, gridState) {
+/**
+ * @param {CanvasRenderingContext2D || OffscreenCanvasRenderingContext2D} context - Canvas context
+ * @param {Field} field - Fumen field
+ * @param {Operation} operation - Fumen operation
+ * @param {number} tilesize - Size of each tile in pixels
+ * @param {number} numrows - Number of rows to display
+ * @param {boolean} transparent - Whether to make empty tiles transparent
+ * @param {number} height - Height of canvas
+ * @param {number} width - Width of canvas
+ * @param {number} numcols - Number of columns to display
+ * @param {boolean[]} skimRows - Which rows to skim
+ * @param {boolean} gridState - Whether to display grid
+* */
+function drawFumens(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState) {
+    if(!transparent) {
+        context.fillStyle = colors['Empty'].normal
+    }
+    else {
+        context.fillStyle = 'rgba(0, 0, 0, 0)'
+    }
+    
     context.fillRect(0, 0, width, height);
     
     if (gridState) {
@@ -139,7 +152,17 @@ function defaults( tilesize, transparent ){
     return [tilesize, transparent]
 }
 
-const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) => {
+
+/**
+ * @param {string} fumenData - Fumen text to be displayed
+ * @param {number} [tilesize] - Size of each tile in pixels
+ * @param {boolean} [transparent] - Whether to make empty tiles transparent
+ * @param {number} [numrows] - Number of rows to display
+ * @param {boolean} [gif] - Whether to display as a gif
+ * @param {number} [frameTime] - Time between frames in ms
+* */
+
+const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, gif, frameTime, ...props }) => {
     
     let mirrorState, setMirroredState
     let gridState, setGridState
@@ -167,14 +190,15 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
     
     useEffect(() => {
         
-        let fumenPage
+        let fumenPages
         
         if(mirrorState) {
-            fumenPage = mirrorPages(decoder.decode(fumenData))[0]
+            fumenPages = mirrorPages(decoder.decode(fumenData))
         }else {
-            fumenPage = decoder.decode(fumenData)[0]
+            fumenPages = decoder.decode(fumenData)
         }
         
+        const fumenPage = fumenPages[0]
         const numcols = 10;
         const field = fumenPage.field
         const operation = fumenPage.operation
@@ -197,13 +221,6 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         canvas.width = width;
         canvas.height = height;
         
-        if(!transparent) {
-            context.fillStyle = colors['Empty'].normal
-        }
-        else {
-            context.fillStyle = 'rgba(0, 0, 0, 0)'
-        }
-        
         let PC = true
         
         // check which rows to skim
@@ -223,8 +240,44 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, ...props }) =>
         }
         
         // console.log(skimRows)
-    
-        drawFumens(context, field, operation, tilesize, numrows, height, width, numcols, skimRows, gridState);
+        
+        if(gif) {
+            let gifFrames = []
+            let gifFrame
+            
+            if(frameTime == undefined) {
+                frameTime = 1000
+            }
+        
+            // draw each frame
+            for (let i = 0; i < fumenPages.length; i++) {
+                gifFrame = new OffscreenCanvas(width, height)
+                let ctx = gifFrame.getContext("2d")
+                drawFumens(ctx, fumenPages[i].field, fumenPages[i].operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
+                gifFrames.push(gifFrame)
+            }
+            
+            // draw each frame
+            let gifFrameIndex = 0
+            // first frame
+            context.drawImage(gifFrames[gifFrameIndex], 0, 0)
+            gifFrameIndex++
+            
+            let gifInterval = setInterval(() => {
+                context.drawImage(gifFrames[gifFrameIndex], 0, 0)
+                gifFrameIndex++
+                if(gifFrameIndex == gifFrames.length) {
+                    gifFrameIndex = 0
+                }
+            }, frameTime)
+            
+            return () => {
+                clearInterval(gifInterval)
+            }
+        }else {
+            drawFumens(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
+        }
+        
     }, [mirrorState, gridState]);
     
     return <canvas
