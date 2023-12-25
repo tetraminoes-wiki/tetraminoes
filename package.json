@@ -38,10 +38,7 @@
     ],
     "development": [
       "last 3 chrome version",
-      "last 3 firefox version",
-      "last 3 chrome android version",
-      "last 3 firefox android version",
-      "last safari ios version"
+      "last 3 firefox version"
     ]
   },
   "engines": {
