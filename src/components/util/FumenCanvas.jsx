@@ -264,6 +264,7 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, gif, frameTime
             gifFrameIndex++
             
             let gifInterval = setInterval(() => {
+                context.clearRect(0, 0, width, height)
                 context.drawImage(gifFrames[gifFrameIndex], 0, 0)
                 gifFrameIndex++
                 if(gifFrameIndex == gifFrames.length) {
