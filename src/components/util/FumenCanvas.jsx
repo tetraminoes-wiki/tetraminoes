@@ -281,8 +281,9 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, gif, frameTime
         
     }, [mirrorState, gridState]);
     
-    return <div className={styles.fumenCanvasSmall}>
+    return <div style={{display:"inline"}}>
         <canvas
+            className={styles.fumenCanvasSmall}
             onClick={clickHandler}
             fumenData={fumenData}
             ref={canvasRef}
