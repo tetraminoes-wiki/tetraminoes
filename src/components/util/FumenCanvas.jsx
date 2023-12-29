@@ -77,7 +77,7 @@ function operationFilter(e) {
  * @param {boolean[]} skimRows - Which rows to skim
  * @param {boolean} gridState - Whether to display grid
 * */
-function drawFumens(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState) {
+function draw(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState) {
     if(!transparent) {
         context.fillStyle = colors['Empty'].normal
     }
@@ -253,7 +253,7 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, gif, frameTime
             for (let i = 0; i < fumenPages.length; i++) {
                 gifFrame = new OffscreenCanvas(width, height)
                 let ctx = gifFrame.getContext("2d")
-                drawFumens(ctx, fumenPages[i].field, fumenPages[i].operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
+                draw(ctx, fumenPages[i].field, fumenPages[i].operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
                 gifFrames.push(gifFrame)
             }
             
@@ -276,18 +276,19 @@ const FumenCanvas = ({ fumenData, tilesize, transparent, numrows, gif, frameTime
                 clearInterval(gifInterval)
             }
         }else {
-            drawFumens(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
+            draw(context, field, operation, tilesize, numrows, transparent, height, width, numcols, skimRows, gridState)
         }
         
     }, [mirrorState, gridState]);
     
-    return <canvas
-        className={styles.fumenCanvasSmall}
-        onClick={clickHandler}
-        fumenData={fumenData}
-        ref={canvasRef}
-        width={width}
-        height={height}/>;
+    return <div className={styles.fumenCanvasSmall}>
+        <canvas
+            onClick={clickHandler}
+            fumenData={fumenData}
+            ref={canvasRef}
+            width={width}
+            height={height}/>
+    </div>;
 }
 
 export default FumenCanvas;
